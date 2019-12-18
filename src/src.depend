@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1576689259 source:d:\programming\c++\ip\impartirea-careului\src\main.cpp
+	<iostream>
+	<graphics.h>
+	<winbgim.h>
+
