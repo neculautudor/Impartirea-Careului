@@ -1,0 +1,1 @@
+*/ Fisierele de tip header vor fi puse in acest folder */
