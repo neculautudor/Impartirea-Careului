@@ -1,8 +1,9 @@
 #include <iostream>
 #include<graphics.h>
 #include<winbgim.h>
+
 using namespace std;
-unsigned NRBULINE=1;
+unsigned NRBULINE=1,patrat=7,x1,y1,culoare=1;
 unsigned tabla[9][9],linie,coloana;
 int x,y;
 void TABLA()
@@ -37,27 +38,27 @@ void TABLA()
         line(x,y+i,2*x,y+i);
     }
 }
-void DESENEAZA_BULINA()
+int DESENEAZA_BULINA(int x,int y)
 {
-    getmouseclick(WM_LBUTTONDOWN,x,y);
+     setcolor(8);
+setfillstyle(SOLID_FILL,8);
   linie=(y-400)/50+1;
   coloana=(x-400)/50+1;
-  if(x>400 && x<800 && y>400 && y<800)
-    if(tabla[linie][coloana]==0)
-    {
-     NRBULINE++;
+   if(x>400 && x<800 && y>400 && y<800)
+         if(tabla[linie][coloana]==0)
+          {
+            NRBULINE++;
+            tabla[linie][coloana]=2;
      circle(400+coloana*50-25,400+linie*50-25,20);
      fillellipse(400+coloana*50-25,400+linie*50-25,20,20);
-     tabla[linie][coloana]++;
-    }
+          }
 }
 
 
 int main()
 {
 
-
-for(int i=1;i<=8;i++)
+  for(int i=1;i<=8;i++)
     for(int j=1;j<=8;j++)
      tabla[i][j]=0;
 
@@ -66,11 +67,44 @@ for(int i=1;i<=8;i++)
     TABLA();
     while(NRBULINE<=8)
     {
-     DESENEAZA_BULINA();
+        getmouseclick(WM_LBUTTONDOWN,x,y);
+        DESENEAZA_BULINA(x,y);
     }
 
+while(true)
+{
+getmouseclick(WM_LBUTTONDOWN,x,y);
+linie=(y-400)/50+1;
+coloana=(x-400)/50+1;
+
+if(tabla[linie][coloana]==2)
+{
+    setcolor(culoare);
+    culoare++;
+    for(int i=1;i<=4;i++)
+        rectangle((x-400)/50*50+i+400,(y-400)/50*50+i+400,(x-400)/50*50+50-i+400,(y-400)/50*50+50-i+400);
+while(patrat)
+{
+    getmouseclick(WM_LBUTTONDOWN,x,y);
+    if(x>400 && x<800 && y>400 && y<800)
+     if(((((x-400)/50+2==coloana) || ((x-400)/50==coloana)) && (linie==(y-400)/50+1)) || ((((y-400)/50+2==linie) || ((y-400)/50==linie)) && (coloana==(x-400)/50+1)))
+      if(tabla[(y-400)/50+1][(x-400)/50+1]==0)
+      {
+
+       for(int i=1;i<=4;i++)
+        rectangle((x-400)/50*50+i+400,(y-400)/50*50+i+400,(x-400)/50*50+50-i+400,(y-400)/50*50+50-i+400);
+     patrat--;
+     tabla[linie][coloana]=1;
+     linie=(y-400)/50+1;
+     coloana=(x-400)/50+1;
 
 
+      }
+}
+
+}
+patrat=7;
+}
 
 getch();
 closegraph();
