@@ -9,7 +9,7 @@
 #define LINII 9
 #define COLOANE 9
 #define LIBER 0
-#define OCUPAT 2
+#define OCUPAT 9
 
 /* Informeaza compilatorul despre existenta acestor variabile, iar acesta va cauta
  * declaratia acestor variabile in fisierele sursa ce includ aceasta librarie */
@@ -77,5 +77,20 @@ void deseneaza_bulina(int x, int y)
             fillellipse(LATIME_TABEL + coloana * 50 - 25, INALTIME_TABEL + linie * 50 - 25, 20, 20);
         }
 }
+
+void sterge_bulina(int x,int y)
+{
+    if(x > 400 && x < 800 && y > 400 && y < 800 && tabla[(y-400)/50+1][(x - 400) / 50 + 1]==OCUPAT)
+            {
+
+           nrBuline--;
+           setcolor(0);
+           circle((x-400)/50*50+425,(y - 400) / 50*50+425,20);
+           setfillstyle(SOLID_FILL,0);
+           fillellipse((x-400)/50*50+425,(y - 400) / 50*50+425,20,20);
+           tabla[(y-400)/50+1][(x - 400) / 50 + 1]=0;
+            }
+}
+
 
 #endif

@@ -35,6 +35,8 @@ int main() {
     {
         getmouseclick(WM_LBUTTONDOWN, x, y);
         deseneaza_bulina(x, y);
+        getmouseclick(WM_RBUTTONDOWN,x,y);
+            sterge_bulina(x,y);
     }
 
     while(true)
@@ -55,6 +57,8 @@ int main() {
             while(patrat)
             {
                 getmouseclick(WM_LBUTTONDOWN, x, y);
+
+
                 if(x > 400 && x < 800 && y > 400 && y < 800) {
                     if(((((x - 400) / 50 + 2 == coloana) || ((x - 400) / 50 == coloana)) && (linie == (y - 400) / 50 + 1)) ||
                        ((((y - 400) / 50 + 2 == linie) || ((y - 400) / 50 == linie)) && (coloana == (x - 400) / 50 + 1))) {
@@ -68,9 +72,12 @@ int main() {
                             tabla[linie][coloana] = 1;
                             linie = (y - 400) / 50 + 1;
                             coloana = (x - 400) / 50 + 1;
+
+
                         }
                     }
                 }
+
             }
         }
         patrat = 7;
