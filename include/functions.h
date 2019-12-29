@@ -63,7 +63,7 @@ void deseneaza_bulina(int x, int y)
 {
     unsigned int linie, coloana;
 
-    setcolor(DARKGRAY);
+    setcolor(WHITE);
     setfillstyle(SOLID_FILL, 8);
     linie = (y - LATIME_TABEL) / 50 + 1;
     coloana = (x - INALTIME_TABEL) / 50 + 1;
@@ -92,5 +92,18 @@ void sterge_bulina(int x,int y)
             }
 }
 
+void buton_restart()
+{
+    outtextxy(10,20,"RESTART");
+    outtextxy(10,40,"MIC");
+    for(int k=1;k<=5;k++)
+    {
+     setcolor(15);
+    line(150+k,0,150+k,105);
+    line(0,100+k,150,100+k);
+    line(k-1,0,k-1,100);
+    line(0,k-1,150,k-1);
+    }
+}
 
 #endif

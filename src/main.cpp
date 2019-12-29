@@ -30,6 +30,7 @@ int main() {
 
     // Deseneaza tabla de joc
     creeaza_tabla();
+    buton_restart();
 
     while(nrBuline <= 8)
     {
@@ -38,10 +39,37 @@ int main() {
         getmouseclick(WM_RBUTTONDOWN,x,y);
             sterge_bulina(x,y);
     }
-
+restart_mic:
     while(true)
     {
         getmouseclick(WM_LBUTTONDOWN, x, y);
+        if(x<150 && y<100 && x>0 && y>0)
+                { restart_mic2:
+                    for(int i=1;i<=8;i++)
+                        for(int j=1;j<=8;j++)
+                        {
+                          if(tabla[i][j]!=OCUPAT)
+                    {
+                        tabla[i][j]=LIBER;
+                        setfillstyle(SOLID_FILL,0);
+
+                        floodfill(j*50+355,i*50+355,15);
+                    }
+                    else
+                    {
+                        setfillstyle(SOLID_FILL,0);
+                        floodfill(j*50+355,i*50+355,15);
+
+
+                    }
+                        }
+                        culoare=1;
+                        patrat=7;
+                        goto restart_mic;
+                }
+
+
+
         linie = (y - 400) / 50 + 1;
         coloana = (x - 400) / 50 + 1;
 
@@ -57,6 +85,8 @@ int main() {
             while(patrat)
             {
                 getmouseclick(WM_LBUTTONDOWN, x, y);
+                if(x<150 && y<100 && x>0 && y>0)
+                    goto restart_mic2;
 
 
                 if(x > 400 && x < 800 && y > 400 && y < 800) {
@@ -64,14 +94,14 @@ int main() {
                        ((((y - 400) / 50 + 2 == linie) || ((y - 400) / 50 == linie)) && (coloana == (x - 400) / 50 + 1))) {
                         if(tabla[(y - 400) / 50 + 1][(x - 400) / 50 + 1] == 0)
                         {
-                            for(int i = 1; i <= 4; i++) {
+                            for(int i = 1; i <= 4; i++)
                                 rectangle((x - 400) / 50 * 50 + i + 400, (y - 400) / 50 * 50 + i + 400,
                                           (x - 400) / 50 * 50 + 50 - i + 400, (y - 400) / 50 * 50 + 50 - i + 400);
-                            }
+
                             patrat--;
-                            tabla[linie][coloana] = 1;
                             linie = (y - 400) / 50 + 1;
                             coloana = (x - 400) / 50 + 1;
+                            tabla[linie][coloana] = 1;
 
 
                         }
@@ -82,6 +112,14 @@ int main() {
         }
         patrat = 7;
     }
+    test:
+        for(int i=1;i<=8;i++)
+        {
+            for(int j=1;j<=8;j++)
+                cout<<tabla[i][j]<<" ";
+                cout<<endl;
+        }
+
 
     // "curatare"
     getch();
