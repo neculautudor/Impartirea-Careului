@@ -10,6 +10,7 @@
 #define COLOANE 9
 #define LIBER 0
 #define OCUPAT 9
+#define POZITIE_BUTON 15
 
 /* Informeaza compilatorul despre existenta acestor variabile, iar acesta va cauta
  * declaratia acestor variabile in fisierele sursa ce includ aceasta librarie */
@@ -92,18 +93,53 @@ void sterge_bulina(int x,int y)
             }
 }
 
-void buton_restart()
+
+/* Reseteaza culoarea fontului, precum si tipul si grosimea liniilor */
+void reseteaza_stil() {
+    setcolor(WHITE);
+    setlinestyle(SOLID_LINE, 0x3333, NORM_WIDTH);
+}
+
+/* Creeaza un buton cu numele "SOFT RESET" care va reseta mersul tuturor bulinelor, utilizatorului
+ * resetandui-se progresul, astfel putand sa gaseasca un alt traseu de urmat.
+ */
+void soft_reset()
 {
-    outtextxy(10,20,"RESTART");
-    outtextxy(10,40,"MIC");
-    for(int k=1;k<=5;k++)
-    {
-     setcolor(15);
-    line(150+k,0,150+k,105);
-    line(0,100+k,150,100+k);
-    line(k-1,0,k-1,100);
-    line(0,k-1,150,k-1);
-    }
+    outtextxy(POZITIE_BUTON, POZITIE_BUTON, "SOFT RESET");
+    setcolor(MAGENTA);
+    setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
+    rectangle(10, 10, 210, 50);
+
+    // Reseteaza stilul liniei si culoarea
+    reseteaza_stil();
+}
+
+
+/* Creeaza un buton cu numele "HARD RESET" care va reseta atat bulinele, cat si mersul acestora.
+ * Este echivalentul repornirii jocului.
+ */
+void hard_reset() {
+    outtextxy(POZITIE_BUTON * POZITIE_BUTON, POZITIE_BUTON, "HARD RESET");
+    setcolor(MAGENTA);
+    setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
+    rectangle(220, 10, 420, 50);
+
+    // Reseteaza stilul liniei si culoarea
+    reseteaza_stil();
+}
+
+
+/* Creeaza un buton cu numele "INSTRUCTIUNI" care va afisa un set de reguli si informatii ce vor ajuta
+ * utilizatorul sa inteleaga mecanismul de functionare al jocului, precum si ce optiuni are acesta.
+ */
+void buton_afisare_instructiuni() {
+    outtextxy(2 * POZITIE_BUTON * POZITIE_BUTON - 10, POZITIE_BUTON, "INSTRUCTIUNI");
+    setcolor(MAGENTA);
+    setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
+    rectangle(430, 10, 675, 50);
+
+    // Reseteaza stilul liniei si culoarea
+    reseteaza_stil();
 }
 
 #endif
