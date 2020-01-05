@@ -142,4 +142,34 @@ void buton_afisare_instructiuni() {
     reseteaza_stil();
 }
 
+
+/* Afiseaza instructiunile pe ecran si se ocupa de modul de functionare al butonului.
+ * Prima functie afisa grafic butonul, aceasta il face sa functioneze.
+ */
+void instructiuni() {
+    setactivepage(1);
+    setvisualpage(1);
+
+    // Butonul "INAPOI"
+    outtextxy(POZITIE_BUTON, POZITIE_BUTON, "<-- INAPOI");
+    setcolor(MAGENTA);
+    setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
+    rectangle(10, 10, 210, 50);
+    reseteaza_stil();
+
+    outtextxy(0, 4 * POZITIE_BUTON, "[x] Cum se joaca acest joc?");
+    outtextxy(POZITIE_BUTON, 6 * POZITIE_BUTON, "- Pai, e simplu. Dai play si aia e.");
+
+    while (true) {
+        int x, y;
+        getmouseclick(WM_LBUTTONDOWN, x, y);
+
+        if(x < 210 && y < 50 && x > 10 && y > 10) {
+            setactivepage(0);
+            setvisualpage(0);
+            return;
+        }
+    }
+}
+
 #endif

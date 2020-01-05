@@ -30,6 +30,7 @@ int main() {
 
     // Deseneaza tabla de joc
     creeaza_tabla();
+    setactivepage(0);
 
     // Creeaza butoanele
     soft_reset();
@@ -39,9 +40,15 @@ int main() {
     while(nrBuline <= 8)
     {
         getmouseclick(WM_LBUTTONDOWN, x, y);
-        deseneaza_bulina(x, y);
-        getmouseclick(WM_RBUTTONDOWN,x,y);
+
+        if (x < 675 && y < 50 && x > 430 && y > 10) {
+            // Verificare pentru butonul "INSTRUCTIUNI"
+            instructiuni();
+        }else{
+            deseneaza_bulina(x, y);
+            getmouseclick(WM_RBUTTONDOWN,x,y);
             sterge_bulina(x,y);
+        }
     }
 
 bucla:
@@ -66,13 +73,14 @@ bucla:
                             floodfill(j*50+355,i*50+355,15);
                         }
                     }
-                culoare=1;
-                patrat=7;
+                culoare = 1;
+                patrat = 7;
                 goto bucla;
         }else if (x < 420 && y < 50 && x > 220 && y > 10) {
             // Verificare pentru butonul "HARD RESET"
         }else if (x < 675 && y < 50 && x > 430 && y > 10) {
             // Verificare pentru butonul "INSTRUCTIUNI"
+            instructiuni();
         }
 
         linie = (y - 400) / 50 + 1;
@@ -90,7 +98,7 @@ bucla:
             while(patrat)
             {
                 getmouseclick(WM_LBUTTONDOWN, x, y);
-                if(x<150 && y<100 && x>0 && y>0)
+                if(x < 210 && y < 50 && x > 10 && y > 10)
                     goto restart_mic2;
 
                 if(x > 400 && x < 800 && y > 400 && y < 800) {
@@ -111,15 +119,16 @@ bucla:
                 } // sfarsit if
             }   // sfarsit while
         }   // sfarsit if mare
+        reseteaza_stil();
         patrat = 7;
     }   // sfarsit while mare
 
-        for(int i=1;i<=8;i++)
-        {
-            for(int j=1;j<=8;j++)
-                cout<<tabla[i][j]<<" ";
-                cout<<endl;
-        }
+    for(int i=1;i<=8;i++)
+    {
+        for(int j=1;j<=8;j++)
+            cout<<tabla[i][j]<<" ";
+        cout<<endl;
+    }
 
     // "curatare"
     getch();
