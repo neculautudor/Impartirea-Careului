@@ -8,7 +8,7 @@
 
 /* Declara variabilele marcate ca "extern" in fisierul header "functions.h" */
 unsigned int tabla[LINII][COLOANE];
-unsigned int nrBuline = 1;
+unsigned int nrBuline = 1,WIN=0;
 
 
 int main() {
@@ -27,7 +27,10 @@ int main() {
         getch();
         return -1;  // inchiderea programului si indicarea faptului ca procesul nu s-a terminat cu succes
     }
-
+start:
+   WIN = 0;
+   patrat = 7;
+   culoare = 1;
     // Deseneaza tabla de joc
     creeaza_tabla();
     setactivepage(0);
@@ -58,7 +61,7 @@ bucla:
 
         // Verificare pentru butonul "SOFT RESET"
         if(x < 210 && y < 50 && x > 10 && y > 10)
-        {
+        { WIN=0;
             restart_mic2:
                 for(int i=1;i<=8;i++)
                     for(int j=1;j<=8;j++)
@@ -76,8 +79,16 @@ bucla:
                 culoare = 1;
                 patrat = 7;
                 goto bucla;
-        }else if (x < 420 && y < 50 && x > 220 && y > 10) {
+        }else if (x < 420 && y < 50 && x > 220 && y > 10) { restart_mare2:
             // Verificare pentru butonul "HARD RESET"
+            for(int i=1;i<=8;i++)
+                    for(int j=1;j<=8;j++)
+                        tabla[i][j]=LIBER;
+                    setfillstyle(SOLID_FILL,0);
+                   floodfill(1,1,7);
+                   nrBuline = 1;
+                    goto start;
+
         }else if (x < 675 && y < 50 && x > 430 && y > 10) {
             // Verificare pentru butonul "INSTRUCTIUNI"
             instructiuni();
@@ -100,7 +111,8 @@ bucla:
                 getmouseclick(WM_LBUTTONDOWN, x, y);
                 if(x < 210 && y < 50 && x > 10 && y > 10)
                     goto restart_mic2;
-
+                if (x < 420 && y < 50 && x > 220 && y > 10)
+                    goto restart_mare2;
                 if(x > 400 && x < 800 && y > 400 && y < 800) {
                     if(((((x - 400) / 50 + 2 == coloana) || ((x - 400) / 50 == coloana)) && (linie == (y - 400) / 50 + 1)) ||
                        ((((y - 400) / 50 + 2 == linie) || ((y - 400) / 50 == linie)) && (coloana == (x - 400) / 50 + 1))) {
@@ -109,11 +121,13 @@ bucla:
                             for(int i = 1; i <= 4; i++)
                                 rectangle((x - 400) / 50 * 50 + i + 400, (y - 400) / 50 * 50 + i + 400,
                                           (x - 400) / 50 * 50 + 50 - i + 400, (y - 400) / 50 * 50 + 50 - i + 400);
-
+                            WIN++;
                             patrat--;
                             linie = (y - 400) / 50 + 1;
                             coloana = (x - 400) / 50 + 1;
                             tabla[linie][coloana] = 1;
+                            if(WIN==56)
+                               win();
                         } // sfarsit if
                     }   // sfarsit if
                 } // sfarsit if

@@ -26,7 +26,7 @@ using namespace std;
 void creeaza_tabla()
 {
     char numar_linie[2];
-
+    setcolor(15);
     // deseneaza conturul tablei cu linii intrerupte, groase
     setlinestyle(DASHED_LINE, 0x3333, THICK_WIDTH);
     line(LATIME_TABEL, INALTIME_TABEL, 2 * LATIME_TABEL, INALTIME_TABEL);
@@ -106,7 +106,7 @@ void reseteaza_stil() {
 void soft_reset()
 {
     outtextxy(POZITIE_BUTON, POZITIE_BUTON, "SOFT RESET");
-    setcolor(MAGENTA);
+    setcolor(WHITE);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
     rectangle(10, 10, 210, 50);
 
@@ -120,7 +120,7 @@ void soft_reset()
  */
 void hard_reset() {
     outtextxy(POZITIE_BUTON * POZITIE_BUTON, POZITIE_BUTON, "HARD RESET");
-    setcolor(MAGENTA);
+    setcolor(WHITE);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
     rectangle(220, 10, 420, 50);
 
@@ -134,7 +134,7 @@ void hard_reset() {
  */
 void buton_afisare_instructiuni() {
     outtextxy(2 * POZITIE_BUTON * POZITIE_BUTON - 10, POZITIE_BUTON, "INSTRUCTIUNI");
-    setcolor(MAGENTA);
+    setcolor(WHITE);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
     rectangle(430, 10, 675, 50);
 
@@ -170,6 +170,11 @@ void instructiuni() {
             return;
         }
     }
+}
+void win()
+{
+    setcolor(WHITE);
+    outtextxy(400,300,"YOU WIN!");
 }
 
 #endif
