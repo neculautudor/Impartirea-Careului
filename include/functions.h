@@ -119,7 +119,7 @@ void soft_reset()
  * Este echivalentul repornirii jocului.
  */
 void hard_reset() {
-    outtextxy(POZITIE_BUTON * POZITIE_BUTON, POZITIE_BUTON, "HARD RESET");
+    outtextxy(POZITIE_BUTON * POZITIE_BUTON, POZITIE_BUTON, " NEW GAME ");
     setcolor(WHITE);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
     rectangle(220, 10, 420, 50);
