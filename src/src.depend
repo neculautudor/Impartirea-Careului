@@ -1,10 +1,9 @@
 # depslib dependency file v1.0
-1578236844 source:d:\programming\c++\ip\impartirea-careului\src\main.cpp
+1578675027 source:d:\programming\c++\ip\impartirea-careului\src\main.cpp
 	<graphics.h>
 	<winbgim.h>
 	"../include/functions.h"
 
-1578083655 d:\programming\c++\ip\impartirea-careului\include\functions.h
+1578675245 d:\programming\c++\ip\impartirea-careului\include\functions.h
 	<iostream>
-	<cstring>
 

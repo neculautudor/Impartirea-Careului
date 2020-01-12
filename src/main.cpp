@@ -37,7 +37,7 @@ start:
 
     // Creeaza butoanele
     soft_reset();
-    hard_reset();
+    new_game();
     buton_afisare_instructiuni();
 
     while(nrBuline <= 8)
@@ -79,13 +79,14 @@ bucla:
                 culoare = 1;
                 patrat = 7;
                 goto bucla;
-        }else if (x < 420 && y < 50 && x > 220 && y > 10) { restart_mare2:
-            // Verificare pentru butonul "HARD RESET"
+        }else if (x < 420 && y < 50 && x > 220 && y > 10) {
+            restart_mare2:
+            // Verificare pentru butonul "NEW GAME"
             for(int i=1;i<=8;i++)
                     for(int j=1;j<=8;j++)
                         tabla[i][j]=LIBER;
                     setfillstyle(SOLID_FILL,0);
-                   floodfill(1,1,7);
+                   floodfill(1, 1, LIGHTRED);   // umple pana cand gaseste acea culoare (culoare pe care noi nu o folosim)
                    nrBuline = 1;
                     goto start;
 
@@ -101,6 +102,7 @@ bucla:
         {
             setcolor(culoare);
             culoare++;
+            tabla[linie][coloana] = 1;
             for(int i = 1; i <= 4; i++) {
                 rectangle((x - 400) / 50 * 50 + i + 400, (y - 400) / 50 * 50 + i + 400,
                           (x - 400) / 50 * 50 + 50 - i + 400, (y - 400) / 50 * 50 + 50 - i + 400);
@@ -136,13 +138,6 @@ bucla:
         reseteaza_stil();
         patrat = 7;
     }   // sfarsit while mare
-
-    for(int i=1;i<=8;i++)
-    {
-        for(int j=1;j<=8;j++)
-            cout<<tabla[i][j]<<" ";
-        cout<<endl;
-    }
 
     // "curatare"
     getch();

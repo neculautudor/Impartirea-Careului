@@ -2,7 +2,6 @@
 #define HEADER_FILE
 
 #include <iostream>
-#include <cstring>
 
 #define LATIME_TABEL 400
 #define INALTIME_TABEL 400
@@ -11,6 +10,8 @@
 #define LIBER 0
 #define OCUPAT 9
 #define POZITIE_BUTON 15
+#define PAGINA_PRINCIPALA 0
+#define INSTRUCTIUNI 1
 
 /* Informeaza compilatorul despre existenta acestor variabile, iar acesta va cauta
  * declaratia acestor variabile in fisierele sursa ce includ aceasta librarie */
@@ -118,7 +119,7 @@ void soft_reset()
 /* Creeaza un buton cu numele "HARD RESET" care va reseta atat bulinele, cat si mersul acestora.
  * Este echivalentul repornirii jocului.
  */
-void hard_reset() {
+void new_game() {
     outtextxy(POZITIE_BUTON * POZITIE_BUTON, POZITIE_BUTON, " NEW GAME ");
     setcolor(WHITE);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
@@ -147,12 +148,12 @@ void buton_afisare_instructiuni() {
  * Prima functie afisa grafic butonul, aceasta il face sa functioneze.
  */
 void instructiuni() {
-    setactivepage(1);
-    setvisualpage(1);
+    setactivepage(INSTRUCTIUNI);
+    setvisualpage(INSTRUCTIUNI);
 
     // Butonul "INAPOI"
     outtextxy(POZITIE_BUTON, POZITIE_BUTON, "<-- INAPOI");
-    setcolor(MAGENTA);
+    setcolor(WHITE);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
     rectangle(10, 10, 210, 50);
     reseteaza_stil();
@@ -165,8 +166,8 @@ void instructiuni() {
         getmouseclick(WM_LBUTTONDOWN, x, y);
 
         if(x < 210 && y < 50 && x > 10 && y > 10) {
-            setactivepage(0);
-            setvisualpage(0);
+            setactivepage(PAGINA_PRINCIPALA);
+            setvisualpage(PAGINA_PRINCIPALA);
             return;
         }
     }
