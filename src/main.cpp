@@ -9,7 +9,10 @@
 /* Declara variabilele marcate ca "extern" in fisierul header "functions.h" */
 unsigned int tabla[LINII][COLOANE];
 unsigned int nrBuline = 1,WIN=0;
-
+unsigned int nivel_1[8]={31,72,43,73,83,84,76,88},
+             nivel_2[8]={54,65,75,46,67,77,78,88},
+             nivel_3[8]={31,81,33,73,83,74,84,76},
+             nivel_4[8]={12,62,83,24,75,56,28,78};
 
 int main() {
     int eroare, x, y, linie, coloana, patrat = 7, culoare = 1;
@@ -34,13 +37,19 @@ start:
     // Deseneaza tabla de joc
     creeaza_tabla();
     setactivepage(0);
-
     // Creeaza butoanele
+    butoane_nivele();
     soft_reset();
     new_game();
     buton_afisare_instructiuni();
 
-    while(nrBuline <= 8)
+   getmouseclick(WM_LBUTTONDOWN,x,y);
+   if (x < 675 && y < 50 && x > 430 && y > 10) {
+            // Verificare pentru butonul "INSTRUCTIUNI"
+            instructiuni();}
+             if(x < 1150 && y < 290 && x > 1000 && y > 240)
+             {
+                 while(nrBuline <= 8)
     {
         getmouseclick(WM_LBUTTONDOWN, x, y);
 
@@ -53,6 +62,19 @@ start:
             sterge_bulina(x,y);
         }
     }
+             }
+        else if (x < 1150 && y < 350 && x > 1000 && y > 300)
+            deseneaza_buline_nivel(nivel_1);
+        else if(x < 1150 && y < 410 && x > 1000 && y > 360)
+            deseneaza_buline_nivel(nivel_2);
+        else if(x < 1150 && y < 470 && x > 1000 && y > 420)
+            deseneaza_buline_nivel(nivel_3);
+        else if(x < 1150 && y < 530 && x > 1000 && y > 480)
+            deseneaza_buline_nivel(nivel_4);
+            else
+            goto start;
+
+
 
 bucla:
     while(true)
@@ -61,20 +83,22 @@ bucla:
 
         // Verificare pentru butonul "SOFT RESET"
         if(x < 210 && y < 50 && x > 10 && y > 10)
-        { WIN=0;
-            restart_mic2:
+        { restart_mic2:
+            WIN=0;
                 for(int i=1;i<=8;i++)
                     for(int j=1;j<=8;j++)
                     {
-                      if(tabla[i][j]!=OCUPAT)
-                        {
-                            tabla[i][j]=LIBER;
-                            setfillstyle(SOLID_FILL,0);
+                        setfillstyle(SOLID_FILL,0);
                             floodfill(j*50+355,i*50+355,15);
-                        }else{
-                            setfillstyle(SOLID_FILL,0);
-                            floodfill(j*50+355,i*50+355,15);
-                        }
+                      if(tabla[i][j] == 1)
+                         tabla[i][j] = LIBER;
+                       if(tabla[i][j] == 3)
+                       {
+                          tabla[i][j] = OCUPAT;
+                          setfillstyle(SOLID_FILL, 8);
+                          floodfill(j*50+375,i*50+375,15);
+
+                    }
                     }
                 culoare = 1;
                 patrat = 7;
@@ -94,15 +118,17 @@ bucla:
             // Verificare pentru butonul "INSTRUCTIUNI"
             instructiuni();
         }
-
+else if(x < 800 && y < 800 && x > 400 && y > 400)
+{
         linie = (y - 400) / 50 + 1;
         coloana = (x - 400) / 50 + 1;
 
         if(tabla[linie][coloana] == OCUPAT)
-        {
+        {   setfillstyle(SOLID_FILL,culoare);
+            floodfill((x - 400) / 50 * 50 +425,(y - 400) / 50 * 50 +425, WHITE);
             setcolor(culoare);
             culoare++;
-            tabla[linie][coloana] = 1;
+            tabla[linie][coloana] = 3;
             for(int i = 1; i <= 4; i++) {
                 rectangle((x - 400) / 50 * 50 + i + 400, (y - 400) / 50 * 50 + i + 400,
                           (x - 400) / 50 * 50 + 50 - i + 400, (y - 400) / 50 * 50 + 50 - i + 400);
@@ -111,6 +137,7 @@ bucla:
             while(patrat)
             {
                 getmouseclick(WM_LBUTTONDOWN, x, y);
+
                 if(x < 210 && y < 50 && x > 10 && y > 10)
                     goto restart_mic2;
                 if (x < 420 && y < 50 && x > 220 && y > 10)
@@ -135,6 +162,7 @@ bucla:
                 } // sfarsit if
             }   // sfarsit while
         }   // sfarsit if mare
+    }
         reseteaza_stil();
         patrat = 7;
     }   // sfarsit while mare

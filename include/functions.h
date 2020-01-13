@@ -93,7 +93,16 @@ void sterge_bulina(int x,int y)
            tabla[(y-400)/50+1][(x - 400) / 50 + 1]=0;
             }
 }
-
+void deseneaza_buline_nivel(unsigned int v[])
+{
+    for(int i=0;i<=7;i++)
+        {
+            tabla[v[i]/10][v[i]%10] = OCUPAT;
+            circle(LATIME_TABEL + v[i]%10 * 50 - 25, INALTIME_TABEL + v[i]/10 * 50 - 25, 20);
+            setfillstyle(SOLID_FILL, 8);
+            fillellipse(LATIME_TABEL + v[i]%10 * 50 - 25, INALTIME_TABEL + v[i]/10 * 50 - 25, 20 , 20);
+        }
+}
 
 /* Reseteaza culoarea fontului, precum si tipul si grosimea liniilor */
 void reseteaza_stil() {
@@ -177,5 +186,24 @@ void win()
     setcolor(WHITE);
     outtextxy(400,300,"YOU WIN!");
 }
+
+void butoane_nivele()
+{   settextstyle(10, HORIZ_DIR, 4);
+    setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
+    rectangle(1000,240,1150,290);
+    outtextxy(1010,250,"CUSTOM");
+    rectangle(1000,300,1150,350);
+    outtextxy(1010,310,"NIVEL 1");
+    rectangle(1000,360,1150,410);
+    outtextxy(1010,370,"NIVEL 2");
+    rectangle(1000,420,1150,470);
+    outtextxy(1010,430,"NIVEL 3");
+    rectangle(1000,480,1150,530);
+    outtextxy(1010,490,"NIVEL 4");
+
+
+
+}
+
 
 #endif
