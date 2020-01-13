@@ -1,14 +1,18 @@
 #include <graphics.h>
 #include <winbgim.h>
-#include "../include/functions.h"   // Merge un folder inapoi, dupa care intra in folder-ul "include"
+#include <ctime>
+#include <cstdlib>
+#include "..\include\functions.h"   // Merge un folder inapoi, dupa care intra in folder-ul "include"
 
 #define LATIME 1200
 #define INALTIME 1000
 #define TITLU "Impartirea Careului"
 
+
 /* Declara variabilele marcate ca "extern" in fisierul header "functions.h" */
 unsigned int tabla[LINII][COLOANE];
 unsigned int nrBuline = 1,WIN=0;
+
 unsigned int nivel_1[8]={31,72,43,73,83,84,76,88},
              nivel_2[8]={54,65,75,46,67,77,78,88},
              nivel_3[8]={31,81,33,73,83,74,84,76},
@@ -16,6 +20,9 @@ unsigned int nivel_1[8]={31,72,43,73,83,84,76,88},
 
 int main() {
     int eroare, x, y, linie, coloana, patrat = 7, culoare = 1;
+
+    /* Initializeaza valoarea aleatoare */
+    srand(time(NULL));
 
     // Initializeaza fereastra
     initwindow(LATIME, INALTIME, TITLU);
@@ -31,50 +38,58 @@ int main() {
         return -1;  // inchiderea programului si indicarea faptului ca procesul nu s-a terminat cu succes
     }
 start:
-   WIN = 0;
-   patrat = 7;
-   culoare = 1;
+    WIN = 0;
+    patrat = 7;
+    culoare = 1;
+
     // Deseneaza tabla de joc
     creeaza_tabla();
     setactivepage(0);
+
     // Creeaza butoanele
     butoane_nivele();
     soft_reset();
     new_game();
     buton_afisare_instructiuni();
 
-   getmouseclick(WM_LBUTTONDOWN,x,y);
-   if (x < 675 && y < 50 && x > 430 && y > 10) {
-            // Verificare pentru butonul "INSTRUCTIUNI"
-            instructiuni();}
-             if(x < 1150 && y < 290 && x > 1000 && y > 240)
-             {
-                 while(nrBuline <= 8)
-    {
-        getmouseclick(WM_LBUTTONDOWN, x, y);
+    getmouseclick(WM_LBUTTONDOWN,x,y);
 
-        if (x < 675 && y < 50 && x > 430 && y > 10) {
+    // Verificare pentru butonul "INSTRUCTIUNI"
+    if (x < 675 && y < 50 && x > 430 && y > 10) {
+        instructiuni();
+    }
+
+    // Verificare pentru butonul "RANDOM"
+    if (x > 1000 && y > 180 && x < 1150 && y < 230) {
+        deseneaza_buline_random();
+    }
+
+    // Verificare pentru butonul "CUSTOM"
+    else if(x < 1150 && y < 290 && x > 1000 && y > 240)
+    {
+        while(nrBuline <= 8)
+        {
+            getmouseclick(WM_LBUTTONDOWN, x, y);
+
+            if (x < 675 && y < 50 && x > 430 && y > 10) {
             // Verificare pentru butonul "INSTRUCTIUNI"
             instructiuni();
-        }else{
-            deseneaza_bulina(x, y);
-            getmouseclick(WM_RBUTTONDOWN,x,y);
-            sterge_bulina(x,y);
+            }else{
+                deseneaza_bulina(x, y);
+                getmouseclick(WM_RBUTTONDOWN,x,y);
+                sterge_bulina(x,y);
+            }
         }
-    }
-             }
-        else if (x < 1150 && y < 350 && x > 1000 && y > 300)
-            deseneaza_buline_nivel(nivel_1);
-        else if(x < 1150 && y < 410 && x > 1000 && y > 360)
-            deseneaza_buline_nivel(nivel_2);
-        else if(x < 1150 && y < 470 && x > 1000 && y > 420)
-            deseneaza_buline_nivel(nivel_3);
-        else if(x < 1150 && y < 530 && x > 1000 && y > 480)
-            deseneaza_buline_nivel(nivel_4);
-            else
-            goto start;
-
-
+    }else if (x < 1150 && y < 350 && x > 1000 && y > 300)
+        deseneaza_buline_nivel(nivel_1);
+    else if(x < 1150 && y < 410 && x > 1000 && y > 360)
+        deseneaza_buline_nivel(nivel_2);
+    else if(x < 1150 && y < 470 && x > 1000 && y > 420)
+        deseneaza_buline_nivel(nivel_3);
+    else if(x < 1150 && y < 530 && x > 1000 && y > 480)
+        deseneaza_buline_nivel(nivel_4);
+    else
+        goto start;
 
 bucla:
     while(true)

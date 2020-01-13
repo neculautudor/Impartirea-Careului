@@ -1,5 +1,5 @@
-#ifndef HEADER_FILE
-#define HEADER_FILE
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
 #include <iostream>
 
@@ -12,11 +12,13 @@
 #define POZITIE_BUTON 15
 #define PAGINA_PRINCIPALA 0
 #define INSTRUCTIUNI 1
+#define NUMAR_BULINE 8
 
 /* Informeaza compilatorul despre existenta acestor variabile, iar acesta va cauta
  * declaratia acestor variabile in fisierele sursa ce includ aceasta librarie */
 extern unsigned int tabla[LINII][COLOANE];
 extern unsigned int nrBuline;
+
 
 using namespace std;
 
@@ -93,6 +95,7 @@ void sterge_bulina(int x,int y)
            tabla[(y-400)/50+1][(x - 400) / 50 + 1]=0;
             }
 }
+
 void deseneaza_buline_nivel(unsigned int v[])
 {
     for(int i=0;i<=7;i++)
@@ -101,6 +104,26 @@ void deseneaza_buline_nivel(unsigned int v[])
             circle(LATIME_TABEL + v[i]%10 * 50 - 25, INALTIME_TABEL + v[i]/10 * 50 - 25, 20);
             setfillstyle(SOLID_FILL, 8);
             fillellipse(LATIME_TABEL + v[i]%10 * 50 - 25, INALTIME_TABEL + v[i]/10 * 50 - 25, 20 , 20);
+        }
+}
+
+void deseneaza_buline_random()
+{
+    unsigned int linie, coloana;
+    for(int i=0;i<=7;i++)
+        {
+            linie = rand() % 8 + 1;
+            coloana = rand() % 8 + 1;
+
+            while (tabla[linie][coloana] == OCUPAT) {
+                linie = rand() % 8 + 1;
+                coloana = rand() % 8 + 1;
+            }
+
+            tabla[linie][coloana] = OCUPAT;
+            circle(LATIME_TABEL + coloana * 50 - 25, INALTIME_TABEL + linie * 50 - 25, 20);
+            setfillstyle(SOLID_FILL, 8);
+            fillellipse(LATIME_TABEL + coloana * 50 - 25, INALTIME_TABEL + linie * 50 - 25, 20 , 20);
         }
 }
 
@@ -143,7 +166,7 @@ void new_game() {
  * utilizatorul sa inteleaga mecanismul de functionare al jocului, precum si ce optiuni are acesta.
  */
 void buton_afisare_instructiuni() {
-    outtextxy(2 * POZITIE_BUTON * POZITIE_BUTON - 10, POZITIE_BUTON, "INSTRUCTIUNI");
+    outtextxy(2 * POZITIE_BUTON * POZITIE_BUTON - 10, POZITIE_BUTON, "INSTRUCTIONS");
     setcolor(WHITE);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
     rectangle(430, 10, 675, 50);
@@ -188,21 +211,29 @@ void win()
 }
 
 void butoane_nivele()
-{   settextstyle(10, HORIZ_DIR, 4);
+{
+    settextstyle(10, HORIZ_DIR, 4);
     setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
+
+    rectangle(1000, 180, 1150, 230);
+    outtextxy(1010, 190, "RANDOM");
+
     rectangle(1000,240,1150,290);
     outtextxy(1010,250,"CUSTOM");
+
     rectangle(1000,300,1150,350);
-    outtextxy(1010,310,"NIVEL 1");
+    outtextxy(1010,310,"LEVEL 1");
+
     rectangle(1000,360,1150,410);
-    outtextxy(1010,370,"NIVEL 2");
+    outtextxy(1010,370,"LEVEL 2");
+
     rectangle(1000,420,1150,470);
-    outtextxy(1010,430,"NIVEL 3");
+    outtextxy(1010,430,"LEVEL 3");
+
     rectangle(1000,480,1150,530);
-    outtextxy(1010,490,"NIVEL 4");
+    outtextxy(1010,490,"LEVEL 4");
 
-
-
+    reseteaza_stil();
 }
 
 
