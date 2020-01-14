@@ -191,7 +191,19 @@ void instructiuni() {
     reseteaza_stil();
 
     outtextxy(0, 4 * POZITIE_BUTON, "[x] Cum se joaca acest joc?");
-    outtextxy(POZITIE_BUTON, 6 * POZITIE_BUTON, "- Pai, e simplu. Dai play si aia e.");
+    settextstyle(10, HORIZ_DIR, 3);
+    outtextxy(POZITIE_BUTON, 6 * POZITIE_BUTON, "-Pentru a incepe jocul, alegeti ce tip de joc doriti, folosind butoanele din dreapta.");
+    outtextxy(POZITIE_BUTON, 8 * POZITIE_BUTON, "Acestea sunt: CUSTOM, RANDOM sau NIVELE.");
+    outtextxy(POZITIE_BUTON, 12 * POZITIE_BUTON, "CUSTOM--- ofera optiunea crearii propriului nivel,plasand manual bulinele pe tabla");
+    outtextxy(2 * POZITIE_BUTON, 14 * POZITIE_BUTON, "Click stanga=desenarea bulinei");
+    outtextxy(2 * POZITIE_BUTON, 16 * POZITIE_BUTON, "Click dreapta=stergerea bulinei");
+    outtextxy(POZITIE_BUTON, 18 * POZITIE_BUTON, "RANDOM--- genereaza pozitii aleatorii ale bulinelor pe tabla");
+    outtextxy(POZITIE_BUTON, 20 * POZITIE_BUTON, "(exista posibilitatea de a fi imposibil de rezolvat)");
+    outtextxy(POZITIE_BUTON, 22 * POZITIE_BUTON, "NIVELE--- genereaza pozitii preconcepute ale bulinelor(toate sunt rezolvabile)");
+    outtextxy(POZITIE_BUTON, 24 * POZITIE_BUTON, "NEW GAME---incepe un joc nou");
+    outtextxy(POZITIE_BUTON, 26 * POZITIE_BUTON, "SOFT RESET---reseteaza patratele");
+    outtextxy(POZITIE_BUTON, 28 * POZITIE_BUTON, "Cand jocul incepe, selectati o bulina si ocupati 8 spatii continue cu Click stanga.");
+    outtextxy(POZITIE_BUTON, 30 * POZITIE_BUTON, "Scopul jucatorului este completarea careului.");
 
     while (true) {
         int x, y;
@@ -233,7 +245,26 @@ void butoane_nivele()
     rectangle(1000,480,1150,530);
     outtextxy(1010,490,"LEVEL 4");
 
+    rectangle(1000,540,1150,590);
+    outtextxy(1010,550,"LEVEL 5");
+
+    rectangle(1000,600,1150,650);
+    outtextxy(1010,610,"LEVEL 6");
+
+    rectangle(1000,660,1150,710);
+    outtextxy(1010,670,"LEVEL 7");
+
+    rectangle(1000,720,1150,770);
+    outtextxy(1010,730,"LEVEL 8");
+
     reseteaza_stil();
+}
+void deseneaza_sageata(int y)
+{setlinestyle(DOTTED_LINE, 0x3333, THICK_WIDTH);
+ line(950,y+25,995,y+25);
+ line(980,y+15,995,y+25);
+ line(980,y+35,995,y+25);
+reseteaza_stil();
 }
 
 

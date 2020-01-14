@@ -16,8 +16,11 @@ unsigned int nrBuline = 1,WIN=0;
 unsigned int nivel_1[8]={31,72,43,73,83,84,76,88},
              nivel_2[8]={54,65,75,46,67,77,78,88},
              nivel_3[8]={31,81,33,73,83,74,84,76},
-             nivel_4[8]={12,62,83,24,75,56,28,78};
-
+             nivel_4[8]={12,62,83,24,75,56,28,78},
+             nivel_5[8]={18,12,43,63,14,44,55,76},
+             nivel_6[8]={11,22,33,44,55,66,77,88},
+             nivel_7[8]={31,72,63,73,83,84,76,68},
+             nivel_8[8]={61,33,43,26,56,17,18,88};
 int main() {
     int eroare, x, y, linie, coloana, patrat = 7, culoare = 1;
 
@@ -62,11 +65,13 @@ start:
     // Verificare pentru butonul "RANDOM"
     if (x > 1000 && y > 180 && x < 1150 && y < 230) {
         deseneaza_buline_random();
+        deseneaza_sageata(180);
     }
 
     // Verificare pentru butonul "CUSTOM"
+
     else if(x < 1150 && y < 290 && x > 1000 && y > 240)
-    {
+    { deseneaza_sageata(240);
         while(nrBuline <= 8)
         {
             getmouseclick(WM_LBUTTONDOWN, x, y);
@@ -74,20 +79,38 @@ start:
             if (x < 675 && y < 50 && x > 430 && y > 10) {
             // Verificare pentru butonul "INSTRUCTIUNI"
             instructiuni();
-            }else{
+            }else if (x < 420 && y < 50 && x > 220 && y > 10)
+            goto restart_mare2;
+            else{
                 deseneaza_bulina(x, y);
                 getmouseclick(WM_RBUTTONDOWN,x,y);
                 sterge_bulina(x,y);
             }
         }
-    }else if (x < 1150 && y < 350 && x > 1000 && y > 300)
+    }else if (x < 1150 && y < 350 && x > 1000 && y > 300){
         deseneaza_buline_nivel(nivel_1);
-    else if(x < 1150 && y < 410 && x > 1000 && y > 360)
+        deseneaza_sageata(300);}
+    else if(x < 1150 && y < 410 && x > 1000 && y > 360){
         deseneaza_buline_nivel(nivel_2);
-    else if(x < 1150 && y < 470 && x > 1000 && y > 420)
+        deseneaza_sageata(360);}
+    else if(x < 1150 && y < 470 && x > 1000 && y > 420){
         deseneaza_buline_nivel(nivel_3);
-    else if(x < 1150 && y < 530 && x > 1000 && y > 480)
+        deseneaza_sageata(420);}
+    else if(x < 1150 && y < 530 && x > 1000 && y > 480){
         deseneaza_buline_nivel(nivel_4);
+        deseneaza_sageata(480);}
+    else if(x < 1150 && y < 590 && x > 1000 && y > 540){
+        deseneaza_buline_nivel(nivel_5);
+        deseneaza_sageata(540);}
+    else if(x < 1150 && y < 650 && x > 1000 && y > 600){
+        deseneaza_buline_nivel(nivel_6);
+        deseneaza_sageata(600);}
+    else if(x < 1150 && y < 710 && x > 1000 && y > 660){
+        deseneaza_buline_nivel(nivel_7);
+        deseneaza_sageata(660);}
+    else if(x < 1150 && y < 770 && x > 1000 && y > 720){
+        deseneaza_buline_nivel(nivel_8);
+        deseneaza_sageata(720);}
     else
         goto start;
 
