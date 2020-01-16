@@ -166,7 +166,7 @@ else if(x < 800 && y < 800 && x > 400 && y > 400)
             floodfill((x - 400) / 50 * 50 +425,(y - 400) / 50 * 50 +425, WHITE);
             setcolor(culoare);
             culoare++;
-            tabla[linie][coloana] = 3;
+            tabla[linie][coloana] = culoare;
             for(int i = 1; i <= 4; i++) {
                 rectangle((x - 400) / 50 * 50 + i + 400, (y - 400) / 50 * 50 + i + 400,
                           (x - 400) / 50 * 50 + 50 - i + 400, (y - 400) / 50 * 50 + 50 - i + 400);
@@ -181,8 +181,8 @@ else if(x < 800 && y < 800 && x > 400 && y > 400)
                 if (x < 420 && y < 50 && x > 220 && y > 10)
                     goto restart_mare2;
                 if(x > 400 && x < 800 && y > 400 && y < 800) {
-                    if(((((x - 400) / 50 + 2 == coloana) || ((x - 400) / 50 == coloana)) && (linie == (y - 400) / 50 + 1)) ||
-                       ((((y - 400) / 50 + 2 == linie) || ((y - 400) / 50 == linie)) && (coloana == (x - 400) / 50 + 1))) {
+                    if(tabla[(y-400)/50+1][(x-400)/50]==culoare || tabla[(y-400)/50][(x-400)/50+1]==culoare
+                          || tabla[(y-400)/50+2][(x-400)/50+1]==culoare || tabla[(y-400)/50+1][(x-400)/50+2]==culoare) {
                         if(tabla[(y - 400) / 50 + 1][(x - 400) / 50 + 1] == 0)
                         {
                             for(int i = 1; i <= 4; i++)
@@ -192,7 +192,7 @@ else if(x < 800 && y < 800 && x > 400 && y > 400)
                             patrat--;
                             linie = (y - 400) / 50 + 1;
                             coloana = (x - 400) / 50 + 1;
-                            tabla[linie][coloana] = 1;
+                            tabla[linie][coloana] = culoare;
                             if(WIN==56)
                                win();
                         } // sfarsit if
