@@ -5,3 +5,6 @@ Implementarea jocului de la pagina 121 din cartea ["Nicolae Oprisiu - Mai in glu
 ## Realizatori Proiect
 - Rosca Ionut
 - Neculau Tudor
+
+## Videoclip de prezentare
+[Youtube Link](https://www.youtube.com/watch?v=hrA5Ii3b4Qo)
